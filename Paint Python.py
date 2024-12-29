@@ -121,32 +121,32 @@ class PaintApp:
                 (event.x, event.y),
                 ((self.start_x + event.x) // 2, self.start_y - abs(event.x - self.start_x)),
             ]
-            self.current_shape = self.canvas.create_polygon(points, outline=self.brush_color, fill="")
-            self.draw.polygon(points, outline=self.brush_color, fill=None)
+            self.current_shape = self.canvas.create_polygon(points, outline=self.brush_color, fill=self.brush_color)
+            self.draw.polygon(points, outline=self.brush_color, fill=self.brush_color)
         elif self.current_tool == "circle":
             self.current_shape = self.canvas.create_oval(
-                self.start_x, self.start_y, event.x, event.y, outline=self.brush_color, fill=""
+                self.start_x, self.start_y, event.x, event.y, outline=self.brush_color, fill=self.brush_color
             )
             self.draw.ellipse(
                 [self.start_x, self.start_y, event.x, event.y],
                 outline=self.brush_color,
-                fill=None,
+                fill=self.brush_color,
             )
         elif self.current_tool == "rectangle":
             self.current_shape = self.canvas.create_rectangle(
-                self.start_x, self.start_y, event.x, event.y, outline=self.brush_color, fill=""
+                self.start_x, self.start_y, event.x, event.y, outline=self.brush_color, fill=self.brush_color
             )
             self.draw.rectangle(
                 [self.start_x, self.start_y, event.x, event.y],
                 outline=self.brush_color,
-                fill=None,
+                fill=self.brush_color,
             )
         elif self.current_tool == "square":
             side = min(abs(event.x - self.start_x), abs(event.y - self.start_y))
             x1, y1 = self.start_x, self.start_y
             x2, y2 = (x1 + side, y1 + side) if event.x > x1 else (x1 - side, y1 - side)
-            self.current_shape = self.canvas.create_rectangle(x1, y1, x2, y2, outline=self.brush_color, fill="")
-            self.draw.rectangle([x1, y1, x2, y2], outline=self.brush_color, fill=None)
+            self.current_shape = self.canvas.create_rectangle(x1, y1, x2, y2, outline=self.brush_color, fill=self.brush_color)
+            self.draw.rectangle([x1, y1, x2, y2], outline=self.brush_color, fill=self.brush_color)
         elif self.current_tool == "star":
             cx, cy = (self.start_x + event.x) // 2, (self.start_y + event.y) // 2
             radius = min(abs(event.x - self.start_x), abs(event.y - self.start_y)) // 2
@@ -157,8 +157,8 @@ class PaintApp:
                 x = cx + r * math.cos(angle)
                 y = cy - r * math.sin(angle)
                 points.append((x, y))
-            self.current_shape = self.canvas.create_polygon(points, outline=self.brush_color, fill="")
-            self.draw.polygon(points, outline=self.brush_color, fill=None)
+            self.current_shape = self.canvas.create_polygon(points, outline=self.brush_color, fill=self.brush_color)
+            self.draw.polygon(points, outline=self.brush_color, fill=self.brush_color)
         elif self.current_tool == "line":
             self.current_shape = self.canvas.create_line(
                 self.start_x, self.start_y, event.x, event.y, fill=self.brush_color, width=self.brush_size
